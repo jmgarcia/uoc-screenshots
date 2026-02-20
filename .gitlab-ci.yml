@@ -1,0 +1,19 @@
+image: mcr.microsoft.com/playwright:v1.58.2-noble # Imagen oficial con todo instalado
+
+stages:
+  - test
+
+mqt_screenshots:
+  stage: test
+  script:
+    - npm ci                               # Instala las dependencias de tu package.json
+    - npx playwright install-deps          # Asegura que las librerías de sistema estén listas
+    - npx playwright test                  # Ejecuta el checklist completo
+  artifacts:
+    when: always
+    paths:
+      - screenshots_mqt/                   # Nombre de la carpeta que definimos en el script
+    expire_in: 1 week                      # Guarda las fotos durante una semana
+  only:
+    - main                                 # Solo se ejecuta al subir cambios a main (o cámbialo a tu rama)
+  allow_failure: true
