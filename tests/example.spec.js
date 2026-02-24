@@ -12,12 +12,19 @@ for (const site of pages) {
     await page.goto(site.url);
 
     // Esperamos a que la red esté tranquila (imágenes cargadas)
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Cambiamos 'visible' por 'attached'
+    const navMenu = page.locator('.cmp-navigation').first();
+    await navMenu.waitFor({ state: 'attached', timeout: 30000 });
+
+    // await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    // await page.waitForTimeout(1000);
 
     // Hacemos la captura de pantalla completa
     await page.screenshot({
       path: `./output/mqt/${testInfo.project.name}/${site.name}.png`,
-      fullPage: true
+      fullPage: false
     });
   });
 }

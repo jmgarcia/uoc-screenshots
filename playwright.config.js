@@ -94,7 +94,7 @@ export default defineConfig({
     },
     {
       name: 'Zoom_200',
-      use: { viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2.0 },
+      use: { viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 2 },
     }
   ],
   /* Run your local dev server before starting the tests */
